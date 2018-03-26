@@ -11,6 +11,11 @@
 // Windows 헤더 파일:
 #include <windows.h>
 
+#include <nmmintrin.h>
+#include <array>
+#include <vector>
+#include <stdexcept>
+#include <string>
 
 
 // TODO: 프로그램에 필요한 추가 헤더는 여기에서 참조합니다.
