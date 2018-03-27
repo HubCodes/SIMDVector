@@ -13,17 +13,18 @@ namespace hub {
 		explicit vector4(const float f1, const float f2, const float f3, const float f4 = 1.0f) noexcept;
 		explicit vector4(const std::array<float, 4>& other) noexcept;
 		explicit vector4(const std::vector<float>& other) noexcept(false);
+		explicit vector4(const __m128 other) noexcept;
 		vector4(const vector4& other) noexcept;
 		vector4& operator=(const vector4& other) noexcept;
 		virtual ~vector4() noexcept;
 
 		/* Vector add */
-		const vector4& operator+(const vector4& other);
-		const vector4& add(const vector4& other);
+		const vector4 operator+(const vector4& other);
+		const vector4 add(const vector4& other);
 
 		/* Vector subtract */
-		const vector4& operator-(const vector4& other);
-		const vector4& sub(const vector4& other);
+		const vector4 operator-(const vector4& other);
+		const vector4 sub(const vector4& other);
 
 		/* Vector inner product */
 		const float operator*(const vector4& other);
@@ -32,6 +33,7 @@ namespace hub {
 		/* Get summary */
 		const float sum() const noexcept;
 
+		/* To string object */
 		const std::string to_string() const noexcept;
 	private:
 		/* Initializer function */
