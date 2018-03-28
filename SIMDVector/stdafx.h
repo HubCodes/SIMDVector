@@ -12,6 +12,7 @@
 
 #include <nmmintrin.h>
 #include <array>
+#include <cmath>
 #include <vector>
 #include <stdexcept>
 #include <string>

@@ -19,16 +19,26 @@ namespace hub {
 		virtual ~vector4() noexcept;
 
 		/* Vector add */
-		const vector4 operator+(const vector4& other);
-		const vector4 add(const vector4& other);
+		const vector4 operator+(const vector4& other) const noexcept;
+		const vector4 add(const vector4& other) const noexcept;
 
 		/* Vector subtract */
-		const vector4 operator-(const vector4& other);
-		const vector4 sub(const vector4& other);
+		const vector4 operator-(const vector4& other) const noexcept;
+		const vector4 sub(const vector4& other) const noexcept;
 
 		/* Vector inner product */
-		const float operator*(const vector4& other);
-		const float dot_product(const vector4& other);
+		const float operator*(const vector4& other) const noexcept;
+		const float dot_product(const vector4& other) const noexcept;
+
+		/* Vector size (length) */
+		const float size() const noexcept;
+
+		/* Vector normalize */
+		const vector4 normalize() const noexcept;
+
+		/* Access vector element */
+		const float& operator[](size_t index) const;
+		float& operator[](size_t index);
 
 		/* Get summary */
 		const float sum() const noexcept;
@@ -36,12 +46,14 @@ namespace hub {
 		/* To string object */
 		const std::string to_string() const noexcept;
 	private:
+		union regdata {
+			__m128 reg;
+			float data[4];
+		};
+
 		/* Initializer function */
 		void set_data(const float f1, const float f2, const float f3, const float f4) noexcept;
 
-		__declspec(align(16)) union {
-			__m128 reg;
-			float data[4];
-		} vec4;
+		__declspec(align(16)) regdata vec4;
 	};
 }

@@ -22,12 +22,9 @@ hub::vector4::vector4(const std::vector<float>& other) noexcept(false) {
 }
 
 hub::vector4::vector4(const __m128 other) noexcept {
-	__declspec(align(16)) union {
-		__m128 data;
-		float d[4];
-	};
-	data = other;
-	set_data(d[3], d[2], d[1], d[0]);
+	__declspec(align(16)) regdata control;
+	control.reg = other;
+	set_data(control.data[3], control.data[2], control.data[1], control.data[0]);
 }
 
 hub::vector4::vector4(const vector4& other) noexcept : vec4(other.vec4) {
@@ -42,33 +39,51 @@ hub::vector4& hub::vector4::operator=(const vector4& other) noexcept {
 hub::vector4::~vector4() noexcept {
 }
 
-const hub::vector4 hub::vector4::operator+(const vector4& other) {
+const hub::vector4 hub::vector4::operator+(const vector4& other) const noexcept {
 	return hub::vector4(_mm_add_ps(vec4.reg, other.vec4.reg));
 }
 
-const hub::vector4 hub::vector4::add(const vector4& other) {
+const hub::vector4 hub::vector4::add(const vector4& other) const noexcept {
 	return operator+(other);
 }
 
-const hub::vector4 hub::vector4::operator-(const vector4& other) {
+const hub::vector4 hub::vector4::operator-(const vector4& other) const noexcept {
 	return hub::vector4(_mm_sub_ps(vec4.reg, other.vec4.reg));
 }
 
-const hub::vector4 hub::vector4::sub(const vector4& other) {
+const hub::vector4 hub::vector4::sub(const vector4& other) const noexcept {
 	return operator-(other);
 }
 
-const float hub::vector4::operator*(const vector4& other) {
-	__declspec(align(16)) union {
-		__m128 result;
-		float d[4];
-	};
-	result = _mm_dp_ps(vec4.reg, other.vec4.reg, 0xff);
-	return d[0];
+const float hub::vector4::operator*(const vector4& other) const noexcept {
+	__declspec(align(16)) regdata result;
+	result.reg = _mm_dp_ps(vec4.reg, other.vec4.reg, 0xff);
+	return result.data[0];
 }
 
-const float hub::vector4::dot_product(const vector4& other) {
+const float hub::vector4::dot_product(const vector4& other) const noexcept {
 	return operator*(other);
+}
+
+const float hub::vector4::size() const noexcept {
+	__declspec(align(16)) regdata result;
+	result.reg = _mm_mul_ps(vec4.reg, vec4.reg);
+	return sqrtf(result.data[0] + result.data[1] + result.data[2] + result.data[3]);
+}
+
+const hub::vector4 hub::vector4::normalize() const noexcept {
+	__declspec(align(16)) regdata multiplier;
+	float size_ = 1.0f / size();
+	multiplier.reg = _mm_set_ps(size_, size_, size_, size_);
+	return vector4(_mm_mul_ps(vec4.reg, multiplier.reg));
+}
+
+const float& hub::vector4::operator[](size_t index) const {
+	return vec4.data[3 - index];
+}
+
+float& hub::vector4::operator[](size_t index) {
+	return const_cast<float&>(static_cast<const hub::vector4*>(this)->operator[](index));
 }
 
 const float hub::vector4::sum() const noexcept {
