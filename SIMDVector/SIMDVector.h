@@ -37,8 +37,14 @@ namespace hub {
 		const vector4 normalize() const noexcept;
 
 		/* Access vector element */
-		const float& operator[](size_t index) const;
-		float& operator[](size_t index);
+		const float& operator[](size_t index) const noexcept;
+		float& operator[](size_t index) noexcept;
+
+		template <int n>
+		const float& at() const noexcept;
+
+		template <int n>
+		float& at() noexcept;
 
 		/* Get summary */
 		const float sum() const noexcept;
@@ -56,4 +62,14 @@ namespace hub {
 
 		__declspec(align(16)) regdata vec4;
 	};
+
+	template<int n>
+	inline const float& vector4::at() const noexcept {
+		return operator[](n);
+	}
+
+	template<int n>
+	inline float& vector4::at() noexcept {
+		return const_cast<float&>(static_cast<const hub::vector4*>(this)->at<n>());
+	}
 }

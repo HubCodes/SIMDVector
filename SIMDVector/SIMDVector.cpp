@@ -78,11 +78,11 @@ const hub::vector4 hub::vector4::normalize() const noexcept {
 	return vector4(_mm_mul_ps(vec4.reg, multiplier.reg));
 }
 
-const float& hub::vector4::operator[](size_t index) const {
+const float& hub::vector4::operator[](size_t index) const noexcept {
 	return vec4.data[3 - index];
 }
 
-float& hub::vector4::operator[](size_t index) {
+float& hub::vector4::operator[](size_t index) noexcept {
 	return const_cast<float&>(static_cast<const hub::vector4*>(this)->operator[](index));
 }
 
