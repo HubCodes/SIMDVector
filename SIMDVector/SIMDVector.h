@@ -16,6 +16,8 @@ namespace hub {
 		explicit vector4(const __m128 other) noexcept;
 		vector4(const vector4& other) noexcept;
 		vector4& operator=(const vector4& other) noexcept;
+		bool operator==(const vector4& other) const noexcept;
+		bool operator!=(const vector4& other) const noexcept;
 		virtual ~vector4() noexcept;
 
 		/* Vector add */

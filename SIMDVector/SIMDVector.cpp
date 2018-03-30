@@ -36,6 +36,15 @@ hub::vector4& hub::vector4::operator=(const vector4& other) noexcept {
 	return *this;
 }
 
+bool hub::vector4::operator==(const vector4& other) const noexcept {
+	__m128 compared = _mm_cmpeq_ps(vec4.reg, other.vec4.reg);
+	return compared.m128_i64[0] && compared.m128_i64[1];
+}
+
+bool hub::vector4::operator!=(const vector4& other) const noexcept {
+	return !operator==(other);
+}
+
 hub::vector4::~vector4() noexcept {
 }
 

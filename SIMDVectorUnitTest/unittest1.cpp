@@ -79,6 +79,14 @@ namespace SIMDVectorUnitTest
 			Assert::AreEqual(2.0f, v1.at<0>(), 0.0000001f, L"[ERROR] Vector index access was failed.", LINE_INFO());
 
 		}
+
+		TEST_METHOD(VecCompare) 
+		{
+			hub::vector4 v1(1.0f, 2.0f, 3.0f, 4.0f);
+			hub::vector4 v2(0.0f, 2.0f, 3.0f, 4.0f);
+
+			Assert::AreEqual(false, v1 != v2, L"[ERROR] Wrong result of vector comparing.", LINE_INFO());
+		}
 	};
 
 	

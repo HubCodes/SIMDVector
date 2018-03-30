@@ -10,7 +10,7 @@ int main() {
 	std::cout << &v1 << '\n';
 	std::cout << &v2 << '\n';
 
-	auto v = v1.normalize();
+	auto v = v1 == v2;
 
 	return 0;
 }
