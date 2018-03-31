@@ -87,6 +87,17 @@ namespace SIMDVectorUnitTest
 
 			Assert::AreEqual(false, v1 != v2, L"[ERROR] Wrong result of vector comparing.", LINE_INFO());
 		}
+
+		TEST_METHOD(VecReverse) 
+		{
+			hub::vector4 v(1.0f, 2.0f, 3.0f, 4.0f);
+			v.reverse();
+
+			Assert::AreEqual(4.0f, v[0], 0.0000001f, L"[ERROR] Vector reverse failed.", LINE_INFO());
+			Assert::AreEqual(3.0f, v[1], 0.0000001f, L"[ERROR] Vector reverse failed.", LINE_INFO());
+			Assert::AreEqual(2.0f, v[2], 0.0000001f, L"[ERROR] Vector reverse failed.", LINE_INFO());
+			Assert::AreEqual(1.0f, v[3], 0.0000001f, L"[ERROR] Vector reverse failed.", LINE_INFO());
+		}
 	};
 
 	

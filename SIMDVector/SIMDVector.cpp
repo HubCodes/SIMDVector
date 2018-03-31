@@ -108,6 +108,10 @@ const std::string hub::vector4::to_string() const noexcept {
 		", " + std::to_string(vec4.data[3]) + ")");
 }
 
+void hub::vector4::reverse() noexcept {
+	vec4.reg = _mm_shuffle_ps(vec4.reg, vec4.reg, _MM_SHUFFLE(0, 1, 2, 3));
+}
+
 
 // private
 void hub::vector4::set_data(const float f1, const float f2, const float f3, const float f4) noexcept {

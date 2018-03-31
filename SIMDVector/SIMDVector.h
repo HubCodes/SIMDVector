@@ -53,6 +53,9 @@ namespace hub {
 
 		/* To string object */
 		const std::string to_string() const noexcept;
+
+		/* reverse */
+		void reverse() noexcept;
 	private:
 		union regdata {
 			__m128 reg;
