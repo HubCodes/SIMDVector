@@ -77,4 +77,7 @@ namespace hub {
 	inline float& vector4::at() noexcept {
 		return const_cast<float&>(static_cast<const hub::vector4*>(this)->at<n>());
 	}
+
+	// non-member functions
+	SIMDVECTOR_API std::ostream& operator<<(std::ostream& stream, const hub::vector4& vec);
 }

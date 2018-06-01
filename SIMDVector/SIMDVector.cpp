@@ -1,6 +1,12 @@
 #include "stdafx.h"
 #include "SIMDVector.h"
 
+// non-member functions
+std::ostream& hub::operator<<(std::ostream& stream, const hub::vector4& vec) {
+	stream << "hub::vector4{" << vec[0] << ", " << vec[1] << ", " << vec[2] << ", " << vec[3] << '}';
+	return stream;
+}
+
 // public 
 hub::vector4::vector4() noexcept {
 	set_data(0.0f, 0.0f, 0.0f, 0.0f);
